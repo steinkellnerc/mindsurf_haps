@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mindsurf — Internet from the Stratosphere</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Stratospheric internet for Germany via HAPS — 150 Mbit/s from solar-powered gliders at 20km altitude. No dead zones. No ground infrastructure. Join the waitlist.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mindsurf.io/">
+    <meta property="og:title" content="Mindsurf — Internet from the Stratosphere">
+    <meta property="og:description" content="Stratospheric connectivity for Germany and beyond. No dead zones. No ground infrastructure. Join the waitlist.">
+    <meta property="og:image" content="https://mindsurf.io/og-image.png">
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mindsurf — Internet from the Stratosphere">
+    <meta name="twitter:description" content="Stratospheric connectivity for Germany and beyond. No dead zones. No ground infrastructure. Join the waitlist.">
+    <meta name="twitter:image" content="https://mindsurf.io/og-image.png">
+
+    <!-- Favicon (inline SVG — triangle matching the logo) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polygon points='12,2 22,20 2,20' fill='%234ade80'/></svg>">
+
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -1102,7 +1123,7 @@
                 <div class="coverage-result" id="coverage-result"></div>
 
                 <p class="coverage-map-note">
-                    Coverage priority is being determined by waitlist density — the more people who register in your area, the faster it becomes a launch market. Interactive coverage map coming 2025.
+                    Coverage priority is being determined by waitlist density — the more people who register in your area, the faster it becomes a launch market. Interactive coverage map coming soon.
                 </p>
             </div>
         </div>
@@ -1119,24 +1140,42 @@
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">Press</a></li>
             </ul>
-            <div class="footer-copy">© 2025 Mindsurf Inc.</div>
+            <div class="footer-copy">© 2026 Mindsurf Inc.</div>
         </div>
     </footer>
 
 
     <script>
         // ─── Waitlist ───
-        function joinWaitlist(source) {
+        // Replace YOUR_FORMSPREE_ID with your endpoint from formspree.io/new (free account)
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+
+        async function joinWaitlist(source) {
             const emailInput = document.getElementById('hero-email');
             const email = emailInput ? emailInput.value.trim() : '';
             if (!email || !email.includes('@')) {
                 emailInput && emailInput.focus();
                 return;
             }
-            // In production: POST to your Firebase/backend here
-            console.log('Waitlist signup:', email, 'source:', source);
-            document.getElementById('waitlist-form').style.display = 'none';
-            document.getElementById('waitlist-success').style.display = 'flex';
+
+            const btn = document.querySelector('#waitlist-form button');
+            btn.textContent = 'Submitting…';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ email, source })
+                });
+                if (!res.ok) throw new Error('Network error');
+                document.getElementById('waitlist-form').style.display = 'none';
+                document.getElementById('waitlist-success').style.display = 'flex';
+            } catch (_) {
+                btn.textContent = 'Join Waitlist';
+                btn.disabled = false;
+                alert('Something went wrong — please try again.');
+            }
         }
 
         // ─── Coverage ───
