@@ -25,6 +25,9 @@ env/
 .firebase/
 .firebaserc
 
+# Generated config (contains secrets — see .env.example)
+config.js
+
 # Vercel
 .vercel/
 

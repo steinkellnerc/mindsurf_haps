@@ -259,6 +259,7 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 8px;
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
@@ -1158,17 +1159,9 @@
 
     <!-- Firebase SDK -->
     <script type="module">
+        import { firebaseConfig } from './config.js';
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
         import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDhzd1Whun8ET-NAbmtjsK8T5y4mqkCoao",
-            authDomain: "still-minutia-475307-u8-51411.firebaseapp.com",
-            projectId: "still-minutia-475307-u8-51411",
-            storageBucket: "still-minutia-475307-u8-51411.firebasestorage.app",
-            messagingSenderId: "344607526645",
-            appId: "1:344607526645:web:84d3b96de5ed9ce5973fbc"
-        };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
