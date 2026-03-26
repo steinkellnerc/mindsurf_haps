@@ -1145,12 +1145,25 @@
     </footer>
 
 
-    <script>
-        // ─── Waitlist ───
-        // Replace YOUR_FORMSPREE_ID with your endpoint from formspree.io/new (free account)
-        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-        async function joinWaitlist(source) {
+        const firebaseConfig = {
+            apiKey: "AIzaSyDhzd1Whun8ET-NAbmtjsK8T5y4mqkCoao",
+            authDomain: "still-minutia-475307-u8-51411.firebaseapp.com",
+            projectId: "still-minutia-475307-u8-51411",
+            storageBucket: "still-minutia-475307-u8-51411.firebasestorage.app",
+            messagingSenderId: "344607526645",
+            appId: "1:344607526645:web:84d3b96de5ed9ce5973fbc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ─── Waitlist ───
+        window.joinWaitlist = async function(source) {
             const emailInput = document.getElementById('hero-email');
             const email = emailInput ? emailInput.value.trim() : '';
             if (!email || !email.includes('@')) {
@@ -1163,12 +1176,11 @@
             btn.disabled = true;
 
             try {
-                const res = await fetch(FORMSPREE_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ email, source })
+                await addDoc(collection(db, 'waitlist'), {
+                    email,
+                    source,
+                    signedUpAt: serverTimestamp()
                 });
-                if (!res.ok) throw new Error('Network error');
                 document.getElementById('waitlist-form').style.display = 'none';
                 document.getElementById('waitlist-success').style.display = 'flex';
             } catch (_) {
@@ -1176,29 +1188,47 @@
                 btn.disabled = false;
                 alert('Something went wrong — please try again.');
             }
-        }
+        };
 
         // ─── Coverage ───
-        function checkCoverage() {
+        window.checkCoverage = async function() {
             const postal = document.getElementById('coverage-postal').value.trim();
             if (!postal) return;
+
+            try {
+                await addDoc(collection(db, 'coverage_requests'), {
+                    postcode: postal,
+                    registeredAt: serverTimestamp()
+                });
+            } catch (_) {
+                // silently continue — show the UI response regardless
+            }
 
             const result = document.getElementById('coverage-result');
             result.classList.add('visible');
             result.innerHTML = `
                 <strong>Postcode ${postal} registered.</strong><br><br>
-                Coverage in this area is not yet active — HAPS infrastructure deployment is in preparation phase for Germany. 
+                Coverage in this area is not yet active — HAPS infrastructure deployment is in preparation phase for Germany.
                 We've noted your location as a demand signal. You'll receive an email the moment Mindsurf goes live in your area.<br><br>
                 <button class="waitlist-inline" onclick="scrollToSection('home')">
                     ↑ Join the main waitlist too
                 </button>
             `;
-        }
+        };
 
         // ─── Enterprise ───
-        function contactEnterprise(type) {
-            alert(`Enterprise interest registered for: ${type}. We'll follow up directly. (Connect this to your CRM or email in production.)`);
-        }
+        window.contactEnterprise = async function(type) {
+            try {
+                await addDoc(collection(db, 'enterprise_interest'), {
+                    type,
+                    registeredAt: serverTimestamp()
+                });
+            } catch (_) {}
+            alert(`Enterprise interest registered for: ${type}. We'll follow up directly.`);
+        };
+    </script>
+
+    <script>
 
         // ─── Nav scroll ───
         function scrollToSection(id) {
