@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Mindsurf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #060608;
+            --surface: #131316;
+            --border: rgba(255,255,255,0.08);
+            --text-primary: #f0f0f0;
+            --text-secondary: #888;
+            --text-muted: #444;
+            --green: #4ade80;
+            --green-dim: rgba(74,222,128,0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            padding: 5rem 2rem;
+        }
+        h1, h2, label { font-family: 'Space Grotesk', sans-serif; }
+        .wrap { max-width: 560px; margin: 0 auto; }
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 3rem;
+            letter-spacing: 0.04em;
+        }
+        .back:hover { color: var(--text-primary); }
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
+        }
+        .sub {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+        .contact-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        .contact-card {
+            background: var(--surface);
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .contact-card-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .contact-card-value {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .contact-card-value a {
+            color: var(--green);
+            text-decoration: none;
+        }
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2.5rem 0;
+        }
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 1rem;
+        }
+        label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        input, textarea, select {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            padding: 12px 14px;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: rgba(255,255,255,0.2);
+        }
+        input::placeholder, textarea::placeholder { color: var(--text-muted); }
+        textarea { resize: vertical; min-height: 120px; }
+        select option { background: #1a1a1a; }
+        button[type="submit"] {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 0.5rem;
+        }
+        button[type="submit"]:hover { background: #e0e0e0; }
+        button[type="submit"]:active { transform: scale(0.98); }
+        .form-success {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            color: var(--green);
+            font-size: 0.95rem;
+            padding: 1.2rem;
+            border: 1px solid rgba(74,222,128,0.2);
+            border-radius: 12px;
+            background: var(--green-dim);
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <a class="back" href="index.html">← Back to Mindsurf</a>
+
+    <h1>Contact</h1>
+    <p class="sub">We're a small team. We read everything.</p>
+
+    <div class="contact-cards">
+        <div class="contact-card">
+            <span class="contact-card-label">General enquiries</span>
+            <span class="contact-card-value"><a href="mailto:hello@mindsurf.io">hello@mindsurf.io</a></span>
+        </div>
+        <div class="contact-card">
+            <span class="contact-card-label">Privacy &amp; data</span>
+            <span class="contact-card-value"><a href="mailto:privacy@mindsurf.io">privacy@mindsurf.io</a></span>
+        </div>
+        <div class="contact-card">
+            <span class="contact-card-label">Investors &amp; partnerships</span>
+            <span class="contact-card-value"><a href="mailto:invest@mindsurf.io">invest@mindsurf.io</a></span>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>Send a message</h2>
+
+    <form id="contact-form" onsubmit="sendContact(event)">
+        <div class="form-field">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" placeholder="Your name" required />
+        </div>
+        <div class="form-field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-field">
+            <label for="cf-subject">Subject</label>
+            <select id="cf-subject">
+                <option value="general">General enquiry</option>
+                <option value="investor">Investor / partnership</option>
+                <option value="press">Press / media</option>
+                <option value="technical">Technical question</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="form-field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <button type="submit" id="cf-btn">Send Message</button>
+    </form>
+
+    <div class="form-success" id="cf-success">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Message sent — we'll get back to you soon.
+    </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+    import { firebaseConfig } from './config.js';
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.sendContact = async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('cf-btn');
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, 'contact_messages'), {
+                name: document.getElementById('cf-name').value.trim(),
+                email: document.getElementById('cf-email').value.trim(),
+                subject: document.getElementById('cf-subject').value,
+                message: document.getElementById('cf-message').value.trim(),
+                sentAt: serverTimestamp()
+            });
+            document.getElementById('contact-form').style.display = 'none';
+            document.getElementById('cf-success').style.display = 'flex';
+        } catch (_) {
+            btn.textContent = 'Send Message';
+            btn.disabled = false;
+            alert('Something went wrong — please email us directly at hello@mindsurf.io');
+        }
+    };
+</script>
+</body>
+</html>
