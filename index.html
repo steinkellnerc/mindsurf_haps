@@ -1201,15 +1201,18 @@
 
         // ─── Waitlist counter ───
         (async function loadCount() {
+            const el = document.getElementById('waitlist-count');
             try {
                 const snap = await getCountFromServer(collection(db, 'waitlist'));
                 const count = snap.data().count;
-                const el = document.getElementById('waitlist-count');
-                if (el && count > 0) {
-                    el.innerHTML = `<strong>${count.toLocaleString()}</strong> people already on the waitlist`;
-                }
                 window._waitlistCount = count;
-            } catch (_) {}
+                if (el && count > 0) {
+                    el.innerHTML = `<strong>${count.toLocaleString()}</strong> ${count === 1 ? 'person' : 'people'} already on the waitlist`;
+                }
+            } catch (_) {
+                // Firestore rules likely blocking reads — fix: allow read on waitlist collection
+                window._waitlistCount = 0;
+            }
         })();
 
         // ─── Waitlist ───
